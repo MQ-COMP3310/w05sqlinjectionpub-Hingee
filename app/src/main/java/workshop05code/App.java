@@ -56,18 +56,18 @@ public class App {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                logger.log(Level.INFO, line);
                 if(line.matches("[a-z]{4}")) {
                     wordleDatabaseConnection.addValidWord(i, line);
                     i++;
                 }else {
-                    System.out.println("Ignored invalid database input");
+                    logger.log(Level.SEVERE,"Invalid database input = "+line);
                 }
             }
 
         } catch (IOException e) {
             System.out.println("Not able to load . Sorry!");
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE,e.getMessage());
             return;
         }
 
@@ -88,6 +88,7 @@ public class App {
                     }
                 }else {
                     System.out.println("Not a valid 4-letter word guess again");
+                    logger.log(Level.FINE,"Guessed not valid input = "+guess);
                 }
 
                 System.out.print("Enter a 4 letter word for a guess or q to quit: " );
